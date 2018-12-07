@@ -1,9 +1,14 @@
 package UnitTests;
 
+import tas.Absenteeism;
+import tas.Shift;
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
+import tas.TASLogic;
 import java.util.ArrayList;
 import org.junit.*;
 import static org.junit.Assert.*;
-import teamproject.*;
 
 public class Feature6 {
     

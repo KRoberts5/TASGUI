@@ -1,12 +1,14 @@
 package UnitTests;
 
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import org.junit.*;
 import static org.junit.Assert.*;
-import teamproject.*;
 
 public class Feature2 {
     

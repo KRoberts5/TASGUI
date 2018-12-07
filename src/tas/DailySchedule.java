@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package teamproject;
+package tas;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -12,11 +12,11 @@ import java.lang.Number;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.GregorianCalendar;
-import static teamproject.Shift.LUNCH_START;
-import static teamproject.Shift.LUNCH_STOP;
-import static teamproject.Shift.SHIFT_START;
-import static teamproject.Shift.SHIFT_STOP;
-import static teamproject.Shift.TIME_FORMAT;
+import static tas.Shift.LUNCH_START;
+import static tas.Shift.LUNCH_STOP;
+import static tas.Shift.SHIFT_START;
+import static tas.Shift.SHIFT_STOP;
+import static tas.Shift.TIME_FORMAT;
 
 public class DailySchedule {
     

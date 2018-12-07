@@ -1,12 +1,16 @@
 package UnitTests;
 
+import tas.Shift;
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
+import tas.TASLogic;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.simple.JSONValue;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import teamproject.*;
 
 public class Feature7 {
     

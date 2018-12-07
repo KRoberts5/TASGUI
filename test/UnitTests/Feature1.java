@@ -1,9 +1,9 @@
 package UnitTests;
 
-import teamproject.Shift;
-import teamproject.TASDatabase;
-import teamproject.Punch;
-import teamproject.Badge;
+import tas.Shift;
+import tas.TASDatabase;
+import tas.Punch;
+import tas.Badge;
 
 import org.junit.*;
 import static org.junit.Assert.*;

@@ -1,11 +1,15 @@
 package UnitTests;
 
+import tas.Shift;
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
+import tas.TASLogic;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.json.simple.*;
-import teamproject.*;
 
 public class Feature5 {
     

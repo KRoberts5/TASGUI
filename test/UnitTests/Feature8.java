@@ -1,9 +1,14 @@
 package UnitTests;
 
+import tas.Absenteeism;
+import tas.Shift;
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
+import tas.TASLogic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import teamproject.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;

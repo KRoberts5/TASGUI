@@ -1,8 +1,11 @@
 package UnitTests;
 
+import tas.Shift;
+import tas.Badge;
+import tas.TASDatabase;
+import tas.Punch;
 import org.junit.*;
 import static org.junit.Assert.*;
-import teamproject.*;
 import java.util.GregorianCalendar;
 import java.sql.Timestamp;
 
