@@ -13,10 +13,11 @@ package tas.view;
 import java.awt.*;
 import javax.swing.*;
 import java.beans.*;
+import tas.controller.*;
 
 public class ViewWindow extends JFrame implements AbstractView {
     
-    
+    private DefaultController controller;
     
     public void modelPropertyChange(PropertyChangeEvent e){
         
