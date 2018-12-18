@@ -1,11 +1,11 @@
 package UnitTests;
 
-import tas.Absenteeism;
-import tas.Shift;
-import tas.Badge;
-import tas.TASDatabase;
-import tas.Punch;
-import tas.TASLogic;
+import tas.model.Absenteeism;
+import tas.model.Shift;
+import tas.model.Badge;
+import tas.model.TASDatabase;
+import tas.model.Punch;
+import tas.model.TASLogic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;

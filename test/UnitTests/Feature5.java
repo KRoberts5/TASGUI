@@ -1,10 +1,10 @@
 package UnitTests;
 
-import tas.Shift;
-import tas.Badge;
-import tas.TASDatabase;
-import tas.Punch;
-import tas.TASLogic;
+import tas.model.Shift;
+import tas.model.Badge;
+import tas.model.TASDatabase;
+import tas.model.Punch;
+import tas.model.TASLogic;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;

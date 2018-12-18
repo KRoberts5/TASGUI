@@ -1,8 +1,8 @@
 package UnitTests;
 
-import tas.Badge;
-import tas.TASDatabase;
-import tas.Punch;
+import tas.model.Badge;
+import tas.model.TASDatabase;
+import tas.model.Punch;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

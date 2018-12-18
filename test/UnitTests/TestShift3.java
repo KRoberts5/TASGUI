@@ -1,9 +1,9 @@
 package UnitTests;
 
-import tas.Shift;
-import tas.Badge;
-import tas.TASDatabase;
-import tas.Punch;
+import tas.model.Shift;
+import tas.model.Badge;
+import tas.model.TASDatabase;
+import tas.model.Punch;
 import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.GregorianCalendar;

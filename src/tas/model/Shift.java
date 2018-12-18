@@ -1,4 +1,4 @@
-package tas;
+package tas.model;
 
 /**
  *
