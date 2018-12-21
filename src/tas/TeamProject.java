@@ -15,6 +15,7 @@ import tas.model.*;
 import tas.view.*;
 import java.awt.EventQueue;
 import java.awt.Dimension;
+import java.util.HashMap;
 
 public class TeamProject {
 
@@ -29,6 +30,11 @@ public class TeamProject {
         ViewLaunchPanel launchPanel = new ViewLaunchPanel(c);
         ViewTerminal terminal = new ViewTerminal(c);
         
+        HashMap<String,AbstractView> views = new HashMap<>();
+        
+        views.put(ViewWindow.TERMINAL, terminal);
+        views.put(ViewWindow.LAUNCH,launchPanel);
+        
         
         c.addModel(m);
         c.addView(launchPanel);
@@ -37,7 +43,7 @@ public class TeamProject {
         
         EventQueue.invokeLater(() -> {
         
-            ViewWindow window = new ViewWindow(c, launchPanel,terminal);
+            ViewWindow window = new ViewWindow(c, views);
             c.addView(window);
             
             /* Set JFrame Properties */

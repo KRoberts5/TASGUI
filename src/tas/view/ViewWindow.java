@@ -14,6 +14,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.beans.*;
 import tas.controller.*;
+import java.util.*;
 
 public class ViewWindow extends JFrame implements AbstractView {
     
@@ -28,20 +29,18 @@ public class ViewWindow extends JFrame implements AbstractView {
     private DefaultController controller;
     
     ViewContainer c1,c2;
+    HashMap<String,AbstractView> containers;
     JPanel container,cards;
     
-    ViewLaunchPanel launchPanel;
-    ViewTerminal terminal;
+
     
-    public ViewWindow(DefaultController controller, ViewLaunchPanel launchPanel, ViewTerminal terminal){
+    public ViewWindow(DefaultController controller, HashMap<String,AbstractView> views){
         super("TAS");
-        
         this.controller = controller;
         
-        this.launchPanel = launchPanel;
-        this.terminal = terminal;
-        initComponents();
+        containers = views;
         
+        initComponents();
         showCard(LAUNCH);
     }
     
@@ -52,21 +51,16 @@ public class ViewWindow extends JFrame implements AbstractView {
         cards = new JPanel();
         cards.setLayout(new CardLayout());
         
-        c1 = new ViewContainer(launchPanel);
-        JPanel card1 = new JPanel();
-        card1.setLayout(new BorderLayout());
-        card1.add(c1,BorderLayout.CENTER);
-        card1.setVisible(false);
-        
-        c2 = new ViewContainer(terminal);
-        JPanel card2 = new JPanel();
-        card2.setLayout(new BorderLayout());
-        card2.add(c2,BorderLayout.CENTER);
-        card2.setVisible(false);
-        
-        
-        cards.add(card1,LAUNCH);
-        cards.add(card2,TERMINAL);
+        for(HashMap.Entry<String,AbstractView> e: containers.entrySet()){
+            ViewContainer c = new ViewContainer((JPanel)e.getValue());
+            JPanel card = new JPanel();
+            card.setLayout(new BorderLayout());
+            card.add(c,BorderLayout.CENTER);
+            card.setVisible(false);
+            
+            cards.add(card,e.getKey());
+            
+        }
         
         container.add(cards,BorderLayout.CENTER);
         
@@ -77,6 +71,7 @@ public class ViewWindow extends JFrame implements AbstractView {
         CardLayout c1 = (CardLayout)(cards.getLayout());
         c1.show(cards,name);
     }
+    
     public void modelPropertyChange(PropertyChangeEvent e){
         
     }
