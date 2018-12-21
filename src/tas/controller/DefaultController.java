@@ -19,6 +19,20 @@ public class DefaultController extends AbstractController {
     public static final String TASLOGIC = "TASLogic";
     public static final String BADGE = "Badge";
     
+    public static final String PUNCH_IN = "PunchIn";
+    public static final String PUNCH_OUT = "PunchOut";
+    public static final String PUNCH_IN_FAIL_INVALID_BADGE_ID = "PunchInFailInvalidBadgeId";
+    public static final String PUNCH_OUT_FAIL_INVALID_BADGE_ID = "PunchOutFailInvalidBadgeId";
+    public static final String PUNCH_IN_SUCCESS = "PunchInSuccess";
+    public static final String PUNCH_OUT_SUCCESS = "PunchOutSuccess";
+    
+    
+    public void punchIn(String badgeId){
+        setModelProperty(PUNCH_IN, badgeId);
+    }
+    public void punchOut(String badgeId){
+        setModelProperty(PUNCH_OUT, badgeId);
+    }
     
     
     

@@ -27,15 +27,17 @@ public class TeamProject {
         DefaultController c = new DefaultController();
         
         ViewLaunchPanel launchPanel = new ViewLaunchPanel(c);
+        ViewTerminal terminal = new ViewTerminal(c);
         
         
         c.addModel(m);
         c.addView(launchPanel);
+        c.addView(terminal);
  
         
         EventQueue.invokeLater(() -> {
         
-            ViewWindow window = new ViewWindow(c, launchPanel);
+            ViewWindow window = new ViewWindow(c, launchPanel,terminal);
             c.addView(window);
             
             /* Set JFrame Properties */
