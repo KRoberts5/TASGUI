@@ -9,11 +9,12 @@ package tas;
  *
  * @author bwats
  */
-import tas.model.TASDatabase;
-import java.util.ArrayList;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+
+import tas.controller.*;
+import tas.model.*;
+import tas.view.*;
+import java.awt.EventQueue;
+import java.awt.Dimension;
 
 public class TeamProject {
 
@@ -22,7 +23,30 @@ public class TeamProject {
      */
     public static void main(String[] args) {   
         
-        TASDatabase db = new TASDatabase();
+        DefaultModel m = new DefaultModel();
+        DefaultController c = new DefaultController();
+        
+        ViewLaunchPanel launchPanel = new ViewLaunchPanel(c);
+        
+        
+        c.addModel(m);
+        c.addView(launchPanel);
+ 
+        
+        EventQueue.invokeLater(() -> {
+        
+            ViewWindow window = new ViewWindow(c, launchPanel);
+            c.addView(window);
+            
+            /* Set JFrame Properties */
+            
+            window.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            window.setPreferredSize(new Dimension(800,700));
+            
+            window.setResizable(false);
+            window.pack();
+            window.setVisible(true);
+        });
         
     }
 }

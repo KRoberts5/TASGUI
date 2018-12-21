@@ -106,5 +106,15 @@ public abstract class AbstractController implements PropertyChangeListener {
         }
         
     }
+    
+    public void showCard(String card){
+        
+        for(AbstractView view : views){
+            if(view instanceof ViewWindow){
+                ((ViewWindow) view).showCard(card);
+            }
+        }
+        
+    }
  
 }
