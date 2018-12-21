@@ -23,22 +23,24 @@ public class TeamProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {   
+        HashMap<String,AbstractView> views = new HashMap<>();
         
         DefaultModel m = new DefaultModel();
         DefaultController c = new DefaultController();
         
         ViewLaunchPanel launchPanel = new ViewLaunchPanel(c);
         ViewTerminal terminal = new ViewTerminal(c);
-        
-        HashMap<String,AbstractView> views = new HashMap<>();
+        ViewAdminChoice adminChoice = new ViewAdminChoice(c);
         
         views.put(ViewWindow.TERMINAL, terminal);
         views.put(ViewWindow.LAUNCH,launchPanel);
+        views.put(ViewWindow.ADMIN_CHOICE, adminChoice);
         
         
         c.addModel(m);
         c.addView(launchPanel);
         c.addView(terminal);
+        c.addView(adminChoice);
  
         
         EventQueue.invokeLater(() -> {
