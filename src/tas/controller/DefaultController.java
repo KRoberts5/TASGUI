@@ -27,6 +27,9 @@ public class DefaultController extends AbstractController {
     public static final String PUNCH_OUT_SUCCESS = "PunchOutSuccess";
     
     
+    public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
+    
+    
     public void punchIn(String badgeId){
         setModelProperty(PUNCH_IN, badgeId);
     }
