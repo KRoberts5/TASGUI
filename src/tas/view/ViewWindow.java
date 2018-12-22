@@ -45,6 +45,8 @@ public class ViewWindow extends JFrame implements AbstractView {
     }
     
     private void initComponents(){
+        
+        
         container = new JPanel();
         container.setLayout(new BorderLayout());
         

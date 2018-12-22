@@ -16,6 +16,7 @@ import tas.view.*;
 import java.awt.EventQueue;
 import java.awt.Dimension;
 import java.util.HashMap;
+import javax.swing.UIManager;
 
 public class TeamProject {
 
@@ -23,6 +24,15 @@ public class TeamProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {   
+        
+        try{
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch(Exception e){
+            System.err.println(e.toString());
+        }
+ 
+        
         HashMap<String,AbstractView> views = new HashMap<>();
         
         DefaultModel m = new DefaultModel();
@@ -41,7 +51,8 @@ public class TeamProject {
         c.addView(launchPanel);
         c.addView(terminal);
         c.addView(adminChoice);
- 
+        
+        
         
         EventQueue.invokeLater(() -> {
         
