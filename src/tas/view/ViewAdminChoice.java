@@ -100,7 +100,7 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         ButtonGroup retrieveButtons = new ButtonGroup();
         
         JRadioButton retrievePunchList = new JRadioButton("Punch List");
-        retrievePunchList.setActionCommand(""); // change this
+        retrievePunchList.setActionCommand(DefaultController.RETRIEVE_PUNCH_LIST); // change this
         retrieveSelections.add(retrievePunchList);
         retrieveButtons.add(retrievePunchList);
         retrieveTab.add(retrievePunchList);
@@ -109,7 +109,11 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         submitRetrieve.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                //change this
+                for(JRadioButton b: retrieveSelections){
+                    if(b.isSelected()){
+                        controller.showCard(b.getActionCommand());
+                    }
+                }
             }
         });
         retrieveTab.add(submitRetrieve);

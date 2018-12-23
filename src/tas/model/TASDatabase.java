@@ -92,6 +92,28 @@ public class TASDatabase {
         
         return badge;
     }
+    
+    public ArrayList<String> getBadgeIdList(){
+        ArrayList<String> badgeIds = new ArrayList();
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("Select `id` FROM badge;");
+            
+            ResultSet result = pst.executeQuery();
+            while(result.next()){
+                badgeIds.add(result.getString("id"));
+            }
+            
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){
+            System.err.println(e.toString());
+        }
+        
+        return badgeIds;
+    }
+    
     public Shift getShift(int id){
         Shift shift = null;
         try{

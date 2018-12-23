@@ -10,13 +10,15 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.beans.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import tas.controller.*;
 
 public class ViewUpdateEmployee extends JPanel implements AbstractView{
     
     DefaultController controller;
     
-    private JComboBox comboBox;
+    private BadgeIdSelector badgeSelector;
     private JPanel titlePanel;
     private JPanel comboPanel;
     private JPanel textFieldPanel;
@@ -36,15 +38,20 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
     private void initComponents(){
         this.setLayout(new BorderLayout());
         
+        ReturnHomeButton home = new ReturnHomeButton(controller);
+        this.add(home,BorderLayout.SOUTH);
+        
         titlePanel = new JPanel();
         comboPanel = new JPanel();
         textFieldPanel = new JPanel();
         tabPanel = new JTabbedPane();
         
-        titlePanel.setLayout(new GridLayout(0,1));
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setPreferredSize(new Dimension(800,100));
+       // titlePanel.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
         
         JLabel instruction = new JLabel("Select a method for finding an employee:");
+        instruction.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
         titlePanel.add(instruction);
         this.add(titlePanel,BorderLayout.NORTH);
         
@@ -67,11 +74,11 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         
         
         comboPanel.setLayout(new FlowLayout());
-        comboBox = new JComboBox();
+        badgeSelector = new BadgeIdSelector();
         for(String id: badgeIds){
-            comboBox.addItem(id);
+            badgeSelector.addItem(id);
         }
-        comboPanel.add(comboBox);
+        comboPanel.add(badgeSelector);
         
         JButton submit2 = new JButton("Submit");
         submit2.addActionListener(new ActionListener(){
@@ -97,10 +104,7 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
             
             ArrayList<String> badgeIds = (ArrayList<String>)e.getNewValue();
             
-            this.comboBox = new JComboBox();
-            for(String id: badgeIds){
-                this.comboBox.addItem(id);
-            }
+            this.badgeSelector.updateBadgeIds(badgeIds);
             
         }
         

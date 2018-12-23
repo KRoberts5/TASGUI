@@ -5,6 +5,9 @@
  */
 package tas.controller;
 
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+
 /**
  *
  * @author Brendan
@@ -12,12 +15,15 @@ package tas.controller;
 public class DefaultController extends AbstractController {
     
     public static final String PUNCH = "Punch";
+    public static final String PUNCH_LIST = "PunchList";
     public static final String EMPLOYEE = "Employee";
     public static final String DAILY_SCHEDULE = "DailySchedule";
     public static final String ABSENTEEISM = "Absenteeism";
     public static final String SHIFT = "Shift";
     public static final String TASLOGIC = "TASLogic";
     public static final String BADGE = "Badge";
+    public static final String BADGE_ID = "BadgeId";
+    public static final String DATE = "Date";
     
     public static final String UPDATE = "Update";
     public static final String INSERT = "Insert";
@@ -29,6 +35,7 @@ public class DefaultController extends AbstractController {
     public static final String ADMIN_CHOICE = "AdminChoice";
     public static final String INSERT_EMPLOYEE = "InsertEmployee";
     public static final String UPDATE_EMPLOYEE = "UpdateEmployee";
+    public static final String RETRIEVE_PUNCH_LIST = "RetrievePunchList";
     
     public static final String PUNCH_IN = "PunchIn";
     public static final String PUNCH_OUT = "PunchOut";
@@ -39,6 +46,9 @@ public class DefaultController extends AbstractController {
     
     
     public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
+    public static final String UPDATE_DAILY_PUNCH_LIST = "UpdateDailyPunchList";
+    
+    public static final String NO_DAILY_PUNCH_LIST_DATA = "NoDailyPunchListData";
     
     
     public void punchIn(String badgeId){
@@ -46,6 +56,14 @@ public class DefaultController extends AbstractController {
     }
     public void punchOut(String badgeId){
         setModelProperty(PUNCH_OUT, badgeId);
+    }
+    public void getPunchList(String badgeId, GregorianCalendar date){
+        HashMap<String,Object> newValues = new HashMap();
+        newValues.put(DATE, date);
+        newValues.put(BADGE_ID, badgeId);
+        
+        getModelProperty(PUNCH_LIST,newValues);
+        
     }
     
     

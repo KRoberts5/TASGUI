@@ -12,6 +12,9 @@ package tas.model;
 
 import java.beans.*;
 import tas.controller.DefaultController;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 public class DefaultModel extends AbstractModel {
     
@@ -52,6 +55,37 @@ public class DefaultModel extends AbstractModel {
             db.insertPunch(p);
             firePropertyChange(DefaultController.PUNCH_OUT_SUCCESS,null,null);
         }
+    }
+    
+    public void getPunchList(HashMap<String,Object> values){
+
+        String badgeId = (String)values.get(DefaultController.BADGE_ID);
+        GregorianCalendar date = (GregorianCalendar)values.get(DefaultController.DATE);
+        
+        Badge badge = db.getBadge(badgeId);
+        long ts = date.getTimeInMillis();
+        
+        ArrayList<Punch> punchList = db.getDailyPunchList(badge, ts);
+        
+        if(punchList.isEmpty()){
+            firePropertyChange(DefaultController.NO_DAILY_PUNCH_LIST_DATA,null,null);
+        }
+        else{
+            Shift s = db.getShift(badge);
+        
+            for(Punch p: punchList){
+                p.adjust(s);
+            }
+
+            firePropertyChange(DefaultController.UPDATE_DAILY_PUNCH_LIST,null,punchList);
+        }
+        
+    }
+    
+    public void init(){
+        ArrayList<String> badgeIds = db.getBadgeIdList();
+        firePropertyChange(DefaultController.UPDATE_BADGE_IDS,null, badgeIds);
+        
     }
     
 }

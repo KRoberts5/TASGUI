@@ -107,6 +107,23 @@ public abstract class AbstractController implements PropertyChangeListener {
         
     }
     
+    protected void getModelProperty(String propertyName, Object newValue){
+        for (AbstractModel model : models) {
+            
+            try {
+ 
+                Method method = model.getClass().getMethod("get" + propertyName, new Class[]{newValue.getClass()});
+                method.invoke(model, newValue);
+ 
+            }
+            
+            catch (Exception e) {
+                System.err.println(e.toString());
+            }
+            
+        }
+    }
+    
     public void showCard(String card){
         
         for(AbstractView view : views){
