@@ -41,16 +41,19 @@ public class TeamProject {
         ViewLaunchPanel launchPanel = new ViewLaunchPanel(c);
         ViewTerminal terminal = new ViewTerminal(c);
         ViewAdminChoice adminChoice = new ViewAdminChoice(c);
+        ViewUpdateEmployee updateEmployee = new ViewUpdateEmployee(c);
         
-        views.put(ViewWindow.TERMINAL, terminal);
-        views.put(ViewWindow.LAUNCH,launchPanel);
-        views.put(ViewWindow.ADMIN_CHOICE, adminChoice);
+        views.put(DefaultController.TERMINAL, terminal);
+        views.put(DefaultController.LAUNCH,launchPanel);
+        views.put(DefaultController.ADMIN_CHOICE, adminChoice);
+        views.put(DefaultController.UPDATE_EMPLOYEE, updateEmployee);
         
         
         c.addModel(m);
         c.addView(launchPanel);
         c.addView(terminal);
         c.addView(adminChoice);
+        c.addView(updateEmployee);
         
         
         

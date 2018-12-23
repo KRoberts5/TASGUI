@@ -19,6 +19,17 @@ public class DefaultController extends AbstractController {
     public static final String TASLOGIC = "TASLogic";
     public static final String BADGE = "Badge";
     
+    public static final String UPDATE = "Update";
+    public static final String INSERT = "Insert";
+    public static final String RETRIEVE = "Retrieve";
+    
+    public static final String LAUNCH = "Launch";
+    public static final String TERMINAL = "Terminal";
+    public static final String ADMIN = "Admin";
+    public static final String ADMIN_CHOICE = "AdminChoice";
+    public static final String INSERT_EMPLOYEE = "InsertEmployee";
+    public static final String UPDATE_EMPLOYEE = "UpdateEmployee";
+    
     public static final String PUNCH_IN = "PunchIn";
     public static final String PUNCH_OUT = "PunchOut";
     public static final String PUNCH_IN_FAIL_INVALID_BADGE_ID = "PunchInFailInvalidBadgeId";

@@ -18,13 +18,8 @@ import java.util.*;
 
 public class ViewWindow extends JFrame implements AbstractView {
     
-    public static final String LAUNCH = "Launch";
-    public static final String TERMINAL = "Terminal";
-    public static final String ADMIN = "Admin";
-    public static final String ADMIN_CHOICE = "AdminChoice";
-    public static final String ADMIN_RETRIEVE = "AdminRetrieve";
-    public static final String ADMIN_UPDATE = "AdminUpdate";
-    public static final String ADMIN_INSERT = "AdminInsert";
+    
+    
     
     private DefaultController controller;
     
@@ -41,7 +36,7 @@ public class ViewWindow extends JFrame implements AbstractView {
         containers = views;
         
         initComponents();
-        showCard(LAUNCH);
+        showCard(DefaultController.LAUNCH);
     }
     
     private void initComponents(){

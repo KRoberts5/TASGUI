@@ -9,62 +9,120 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.beans.*;
+import java.util.ArrayList;
 import tas.controller.*;
 
 public class ViewAdminChoice extends JPanel implements AbstractView {
     
     private DefaultController controller;
     
+    private JTabbedPane tabPanel;
+    private ArrayList<JRadioButton> updateSelections;
+    private ArrayList<JRadioButton> insertSelections;
+    private ArrayList<JRadioButton> retrieveSelections;
+   
+    
     public ViewAdminChoice(DefaultController controller){
+        
         this.controller = controller;
+        
+        updateSelections = new ArrayList();
+        insertSelections = new ArrayList();
+        retrieveSelections = new ArrayList();
+        
+        
         initComponents();
     }
     
     private void initComponents(){
-        this.setLayout(new GridLayout(0,1));
+        tabPanel = new JTabbedPane();
+        tabPanel.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         
-        JPanel labelPanel = new JPanel();
-        labelPanel.setLayout(new FlowLayout());
-        JLabel label = new JLabel("Please Choose an Operation:");
-        labelPanel.add(label);
+        JPanel updateTab = new JPanel();
+        updateTab.setPreferredSize(new Dimension(700,800));
+        updateTab.setLayout(new BoxLayout(updateTab, BoxLayout.Y_AXIS));
         
-        this.add(labelPanel);
+        //update radio buttons
+        ButtonGroup updateButtons = new ButtonGroup();
         
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
+        JRadioButton updateEmployee = new JRadioButton("Employee");
+        updateEmployee.setActionCommand(DefaultController.UPDATE_EMPLOYEE); //Change this
+        updateSelections.add(updateEmployee);
+        updateButtons.add(updateEmployee);
+        updateTab.add(updateEmployee);
         
-        JButton insert = new JButton("Insert");
-        insert.setActionCommand(ViewWindow.ADMIN_INSERT);
-        insert.addActionListener(new ActionListener(){
-            @Override public void actionPerformed(ActionEvent e){
-                selectOperation(e.getActionCommand());
+        JButton submitUpdate = new JButton("Submit");
+        submitUpdate.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                for(JRadioButton b: updateSelections){
+                    if(b.isSelected()){
+                        controller.showCard(b.getActionCommand());
+                    }
+                }
             }
         });
-        buttonPanel.add(insert);
+        updateTab.add(submitUpdate);
         
-        JButton update = new JButton("Update");
-        update.setActionCommand(ViewWindow.ADMIN_UPDATE);
-        update.addActionListener(new ActionListener(){
+        tabPanel.add("Update", updateTab);
+        
+        JPanel insertTab = new JPanel();
+        insertTab.setPreferredSize(new Dimension(700,800));
+        insertTab.setLayout(new BoxLayout(insertTab, BoxLayout.Y_AXIS));
+        ButtonGroup insertButtons = new ButtonGroup();
+        
+        JRadioButton insertEmployee = new JRadioButton("Employee");
+        insertEmployee.setActionCommand(""); // Change This
+        insertSelections.add(insertEmployee);
+        insertButtons.add(insertEmployee);
+        insertTab.add(insertEmployee);
+        
+        JRadioButton insertPunch = new JRadioButton("Punch");
+        insertPunch.setActionCommand("");
+        insertSelections.add(insertPunch);
+        insertButtons.add(insertPunch);
+        insertTab.add(insertPunch);
+        
+        JButton submitInsert = new JButton("Submit");
+        submitInsert.addActionListener(new ActionListener(){
             @Override 
             public void actionPerformed(ActionEvent e){
-                selectOperation(e.getActionCommand());
+                //Finish
             }
         });
-        buttonPanel.add(update);
+        insertTab.add(submitInsert);
         
-        JButton retrieve = new JButton("Retrieve");
-        retrieve.setActionCommand(ViewWindow.ADMIN_RETRIEVE);
-        retrieve.addActionListener(new ActionListener(){
-            @Override public void actionPerformed(ActionEvent e){
-                selectOperation(e.getActionCommand());
+        tabPanel.add("Insert", insertTab);
+        
+        JPanel retrieveTab = new JPanel();
+        retrieveTab.setPreferredSize(new Dimension(700,800));
+        retrieveTab.setLayout(new BoxLayout(retrieveTab, BoxLayout.Y_AXIS));
+        ButtonGroup retrieveButtons = new ButtonGroup();
+        
+        JRadioButton retrievePunchList = new JRadioButton("Punch List");
+        retrievePunchList.setActionCommand(""); // change this
+        retrieveSelections.add(retrievePunchList);
+        retrieveButtons.add(retrievePunchList);
+        retrieveTab.add(retrievePunchList);
+        
+        JButton submitRetrieve = new JButton("Submit");
+        submitRetrieve.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                //change this
             }
         });
-        buttonPanel.add(retrieve);
+        retrieveTab.add(submitRetrieve);
         
-        this.add(buttonPanel);
+        tabPanel.add("Retrieve",retrieveTab);
         
+        this.add(tabPanel);
     }
     
+    private void resetGUI(){
+        
+    }
+
     private void selectOperation(String op){
         controller.showCard(op);
     }
