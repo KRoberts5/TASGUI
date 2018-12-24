@@ -65,6 +65,8 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         submit.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                String badgeId = badgeIdInput.getText();
+                submit(badgeId);
                 resetGUI();
             }
         });
@@ -84,6 +86,8 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         submit2.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
+                String badgeId = (String)badgeSelector.getSelectedItem();
+                submit(badgeId);
                 resetGUI();
             }
         });
@@ -93,7 +97,11 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         
         this.add(tabPanel);
     }
-    
+    private void submit(String badgeId){
+        
+        controller.getEmployeeData(badgeId);
+        controller.showCard(DefaultController.UPDATE_EMPLOYEE_INPUT);
+    }
     private void resetGUI(){
         this.badgeIdInput.setText("");
     }

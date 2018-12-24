@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import tas.controller.DefaultController;
 
 public class TASDatabase {
     
@@ -129,6 +131,27 @@ public class TASDatabase {
         catch(Exception e){System.err.println(e.toString());}
         
         return wage;
+    }
+    
+    public HashMap<String,String> getEmployeeData(String badgeId){
+        HashMap<String,String> data = new HashMap();
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT * FROM employee WHERE badgeid = ?;");
+            pst.setString(1, badgeId);
+            
+            ResultSet result = pst.executeQuery();
+            if(result.next()){
+                data.put(DefaultController.BADGE_ID, result.getString("badgeid"));
+                data.put(DefaultController.FIRSTNAME, result.getString("firstname"));
+                data.put(DefaultController.MIDDLENAME, result.getString("middlename"));
+                data.put(DefaultController.LASTNAME, result.getString("lastname"));
+                data.put(DefaultController.EMPLOYEE_TYPE_ID, String.valueOf(result.getInt("employeetypeid")));
+                data.put(DefaultController.DEPARTMENT_ID, String.valueOf(result.getInt("departmentid")));
+                data.put(DefaultController.SHIFT_ID, String.valueOf(result.getInt("shiftid")));
+            }
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        return data;
     }
     
     public double getEmployeeOvertime(String badgeId){

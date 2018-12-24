@@ -123,6 +123,21 @@ public class DefaultModel extends AbstractModel {
         }
     }
     
+    public void getUpdateEmployeeInfo(String badgeId){
+        
+        firePropertyChange(DefaultController.UPDATE_BADGE_ID,null,badgeId);
+        
+        HashMap<String,String> data = db.getEmployeeData(badgeId);
+        
+        if(data.isEmpty()){
+            //Add Later
+        }
+        else{
+            firePropertyChange(DefaultController.UPDATE_EMPLOYEE_INFO,null,data);
+        }
+        
+    }
+    
     public void setReturnHome(String homeName){
         firePropertyChange(DefaultController.RESET_GUI,null,null);
     }
@@ -132,5 +147,7 @@ public class DefaultModel extends AbstractModel {
         firePropertyChange(DefaultController.UPDATE_BADGE_IDS,null, badgeIds);
         
     }
+    
+    
     
 }

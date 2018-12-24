@@ -14,6 +14,14 @@ import java.util.HashMap;
  * @author Brendan
  */
 public class DefaultController extends AbstractController {
+    public static final String BADGE_ID = "badgeid";
+    public static final String FIRSTNAME = "firstname";
+    public static final String MIDDLENAME = "middlename";
+    public static final String LASTNAME = "lastname";
+    public static final String EMPLOYEE_TYPE_ID = "employeetypeid";
+    public static final String DEPARTMENT_ID = "departmentid";
+    public static final String SHIFT_ID = "shiftid";
+    
     
     public static final String PUNCH = "Punch";
     public static final String PUNCH_LIST = "PunchList";
@@ -23,7 +31,6 @@ public class DefaultController extends AbstractController {
     public static final String SHIFT = "Shift";
     public static final String TASLOGIC = "TASLogic";
     public static final String BADGE = "Badge";
-    public static final String BADGE_ID = "BadgeId";
     public static final String DATE = "Date";
     public static final String PAY_PERIOD_DATA = "PayPeriodData";
     
@@ -49,7 +56,10 @@ public class DefaultController extends AbstractController {
     
     public static final String RESET_GUI = "ResetGUI";
     public static final String RETURN_HOME = "ReturnHome";
+    public static final String UPDATE_EMPLOYEE_INFO = "UpdateEmployeeInfo";
+    public static final String UPDATE_EMPLOYEE_INPUT = "UpdateEmployeeInput";
     public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
+    public static final String UPDATE_BADGE_ID = "UpdateBadgeId";
     public static final String UPDATE_DAILY_PUNCH_LIST = "UpdateDailyPunchList";
     public static final String UPDATE_PAY_PERIOD_DATA = "UpdatePayPeriodData";
     
@@ -81,7 +91,9 @@ public class DefaultController extends AbstractController {
         
         getModelProperty(PAY_PERIOD_DATA,newValues);
     }
-    
+    public void getEmployeeData(String badgeId){
+        getModelProperty(UPDATE_EMPLOYEE_INFO,badgeId);
+    }
     
     
 }
