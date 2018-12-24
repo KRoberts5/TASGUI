@@ -38,6 +38,12 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         tabPanel = new JTabbedPane();
         tabPanel.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         
+        //Font buttonFont = this.getFont().deriveFont(15f);
+        //Font labelFont = this.getFont().deriveFont(15f);
+        
+        Font buttonFont = this.getFont();
+        Font labelFont = this.getFont();
+        
         JPanel updateTab = new JPanel();
         updateTab.setPreferredSize(new Dimension(700,800));
         updateTab.setLayout(new BoxLayout(updateTab, BoxLayout.Y_AXIS));
@@ -51,7 +57,13 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         updateButtons.add(updateEmployee);
         updateTab.add(updateEmployee);
         
+        
+        for(JRadioButton b: updateSelections){
+            b.setFont(buttonFont);
+        }
+        
         JButton submitUpdate = new JButton("Submit");
+        submitUpdate.setFont(buttonFont);
         submitUpdate.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -83,7 +95,12 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         insertButtons.add(insertPunch);
         insertTab.add(insertPunch);
         
+        for(JRadioButton b: insertSelections){
+            b.setFont(buttonFont);
+        }
+        
         JButton submitInsert = new JButton("Submit");
+        submitInsert.setFont(buttonFont);
         submitInsert.addActionListener(new ActionListener(){
             @Override 
             public void actionPerformed(ActionEvent e){
@@ -111,7 +128,12 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         retrieveButtons.add(retrievePayPeriodData);
         retrieveTab.add(retrievePayPeriodData);
         
+        for(JRadioButton b: retrieveSelections){
+            b.setFont(buttonFont);
+        }
+        
         JButton submitRetrieve = new JButton("Submit");
+        submitRetrieve.setFont(buttonFont);
         submitRetrieve.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
@@ -126,6 +148,19 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         
         tabPanel.add("Retrieve",retrieveTab);
         
+        
+        JLabel updateLabel = new JLabel("Update");
+        updateLabel.setFont(labelFont);
+        updateLabel.setPreferredSize(new Dimension(200,30));
+        tabPanel.setTabComponentAt(0, updateLabel);
+        JLabel insertLabel = new JLabel("Insert");
+        insertLabel.setFont(labelFont);
+        insertLabel.setPreferredSize(new Dimension(200,30));
+        tabPanel.setTabComponentAt(1, insertLabel);
+        JLabel retrieveLabel = new JLabel("Retrieve");
+        retrieveLabel.setFont(labelFont);
+        retrieveLabel.setPreferredSize(new Dimension(200,30));
+        tabPanel.setTabComponentAt(2, retrieveLabel);
         this.add(tabPanel);
     }
     
