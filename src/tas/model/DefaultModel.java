@@ -71,15 +71,60 @@ public class DefaultModel extends AbstractModel {
             firePropertyChange(DefaultController.NO_DAILY_PUNCH_LIST_DATA,null,null);
         }
         else{
+            String output = "Punch Data: \n\n";
+            
             Shift s = db.getShift(badge);
-        
             for(Punch p: punchList){
                 p.adjust(s);
+                output += p.printOriginalTimestamp() + "\n";
+                output += p.printAdjustedTimestamp() + "\n\n";
             }
 
-            firePropertyChange(DefaultController.UPDATE_DAILY_PUNCH_LIST,null,punchList);
+            firePropertyChange(DefaultController.UPDATE_DAILY_PUNCH_LIST,null,output);
         }
         
+    }
+    
+    public void getPayPeriodData(HashMap<String,Object> values){
+        String badgeId = (String)values.get(DefaultController.BADGE_ID);
+        GregorianCalendar date = (GregorianCalendar)values.get(DefaultController.DATE);
+        
+        Badge b = db.getBadge(badgeId);
+        long ts = date.getTimeInMillis();
+        
+        ArrayList<Punch> payPeriodPunchList = db.getPayPeriodPunchList(b, ts);
+        
+        if(payPeriodPunchList.isEmpty()){
+            firePropertyChange(DefaultController.NO_PAY_PERIOD_DATA,null,null);
+        }
+        else{
+        
+            Shift s = db.getShift(b);
+            double wage = db.getEmployeeWage(badgeId);
+            double overtime = db.getEmployeeOvertime(badgeId);
+
+            double salary = TASLogic.calculatePayPeriodSalary(payPeriodPunchList, s, wage, overtime);
+            double absenteeismPercentage = TASLogic.calculateAbsenteeism(payPeriodPunchList, s);
+
+            Absenteeism absenteeism = new Absenteeism(badgeId,ts,absenteeismPercentage);
+
+
+
+            String output = absenteeism.toString() + "\n";
+            output += "Gross Salary: $" + salary + "\n";
+            output += "Punch Data:\n\n";
+            for(Punch p: payPeriodPunchList){
+                p.adjust(s);
+                output += p.printOriginalTimestamp() + "\n";
+                output += p.printAdjustedTimestamp() + "\n\n";
+            }
+            
+            firePropertyChange(DefaultController.UPDATE_PAY_PERIOD_DATA,null,output);
+        }
+    }
+    
+    public void setReturnHome(String homeName){
+        firePropertyChange(DefaultController.RESET_GUI,null,null);
     }
     
     public void init(){

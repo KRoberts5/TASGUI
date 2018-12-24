@@ -105,6 +105,12 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         retrieveButtons.add(retrievePunchList);
         retrieveTab.add(retrievePunchList);
         
+        JRadioButton retrievePayPeriodData = new JRadioButton("Pay Period Data");
+        retrievePayPeriodData.setActionCommand(DefaultController.RETRIEVE_PAY_PERIOD_DATA);
+        retrieveSelections.add(retrievePayPeriodData);
+        retrieveButtons.add(retrievePayPeriodData);
+        retrieveTab.add(retrievePayPeriodData);
+        
         JButton submitRetrieve = new JButton("Submit");
         submitRetrieve.addActionListener(new ActionListener(){
             @Override

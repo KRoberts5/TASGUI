@@ -114,6 +114,40 @@ public class TASDatabase {
         return badgeIds;
     }
     
+    public double getEmployeeWage(String badgeId){
+        double wage = 0;
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT department.wage FROM employee INNER JOIN department ON employee.departmentid = department.id WHERE employee.badgeid =?;");
+            pst.setString(1, badgeId);
+            
+            ResultSet result = pst.executeQuery();
+            if(result.next())
+                wage = result.getDouble("wage");
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return wage;
+    }
+    
+    public double getEmployeeOvertime(String badgeId){
+        double overtime = 0;
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT department.overtime FROM employee INNER JOIN department ON employee.departmentid = department.id WHERE employee.badgeid =?;");
+            pst.setString(1, badgeId);
+            
+            ResultSet result = pst.executeQuery();
+            if(result.next())
+                overtime = result.getDouble("overtime");
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return overtime;
+    }
+    
     public Shift getShift(int id){
         Shift shift = null;
         try{

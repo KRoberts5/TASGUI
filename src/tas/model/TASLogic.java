@@ -24,6 +24,7 @@ public class TASLogic {
     public static final int MILLIS_TO_MIN = 60000;
     public static final long MILLIS_TO_HOURS = 3600000;
     public static final int MILLIS_TO_SECS = 1000;
+    public static final int MIN_TO_HOUR = 60;
     
     public static final int NUM_DAYS = 7;
     public static final int WORK_WEEK = 5;
@@ -174,5 +175,69 @@ public class TASLogic {
         }
         
         return percentage; 
+    }
+    
+    public static double calculatePayPeriodSalary(ArrayList<Punch> punchList, Shift s, double wage, double overtime){
+        double salary = 0;
+        
+        double overtimeWage = wage * overtime;
+        ArrayList<Punch> currentDayPunches = new ArrayList();
+        
+        int currentDay = punchList.get(0).getOriginaltimestamp().get(Calendar.DAY_OF_WEEK);
+        
+        for(Punch p: punchList){
+            if (p.getOriginaltimestamp().get(Calendar.DAY_OF_WEEK) == currentDay){
+                currentDayPunches.add(p);
+            }
+            else{
+                double previousDayMinutes = calculateTotalMinutes(currentDayPunches,s);
+                double previousDayHours = previousDayMinutes/TASLogic.MIN_TO_HOUR;
+                double previousDayShiftLength = s.getShiftLength(currentDay)/TASLogic.MIN_TO_HOUR;
+                
+                if(previousDayHours<= previousDayShiftLength){
+                    salary += (previousDayHours*wage);
+                }
+                else{
+                    double excessTime = previousDayHours - previousDayShiftLength;
+                    salary += (previousDayShiftLength*wage);
+                    salary += (excessTime * overtimeWage);
+                }
+                
+                currentDay = p.getOriginaltimestamp().get(Calendar.DAY_OF_WEEK);
+                currentDayPunches = new ArrayList();
+                currentDayPunches.add(p);
+            }
+        }
+        
+        double previousDayMinutes = calculateTotalMinutes(currentDayPunches,s);
+        double previousDayHours = previousDayMinutes/TASLogic.MIN_TO_HOUR;
+        double previousDayShiftLength = s.getShiftLength(currentDay)/TASLogic.MIN_TO_HOUR;
+
+        if(previousDayHours<= previousDayShiftLength){
+            salary += (previousDayHours*wage);
+        }
+        else{
+            double excessTime = previousDayHours - previousDayShiftLength;
+            salary += (previousDayShiftLength*wage);
+            salary += (excessTime * overtimeWage);
+        }
+
+        
+        return salary;
+    }
+    
+    public static long getPayPeriodStartInMillis(long ts){
+        long start = 0;
+        
+        GregorianCalendar date = new GregorianCalendar();
+        date.setTimeInMillis(ts);
+        date.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        
+        start = date.getTimeInMillis();
+        return start;
     }
 }

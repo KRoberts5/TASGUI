@@ -43,12 +43,14 @@ public class TeamProject {
         ViewAdminChoice adminChoice = new ViewAdminChoice(c);
         ViewUpdateEmployee updateEmployee = new ViewUpdateEmployee(c);
         ViewRetrievePunchList retrievePunchList = new ViewRetrievePunchList(c);
+        ViewRetrievePayPeriodData retrievePayPeriodData = new ViewRetrievePayPeriodData(c);
         
         views.put(DefaultController.TERMINAL, terminal);
         views.put(DefaultController.LAUNCH,launchPanel);
         views.put(DefaultController.ADMIN_CHOICE, adminChoice);
         views.put(DefaultController.UPDATE_EMPLOYEE, updateEmployee);
         views.put(DefaultController.RETRIEVE_PUNCH_LIST, retrievePunchList);
+        views.put(DefaultController.RETRIEVE_PAY_PERIOD_DATA, retrievePayPeriodData);
         
         
         c.addModel(m);
@@ -57,6 +59,7 @@ public class TeamProject {
         c.addView(adminChoice);
         c.addView(updateEmployee);
         c.addView(retrievePunchList);
+        c.addView(retrievePayPeriodData);
         
         m.init();
         

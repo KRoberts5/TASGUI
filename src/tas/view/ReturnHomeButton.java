@@ -18,7 +18,8 @@ public class ReturnHomeButton extends JButton{
         this.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                c.showCard(DefaultController.ADMIN_CHOICE);
+                c.returnHome();
+                
             }
         });
     }

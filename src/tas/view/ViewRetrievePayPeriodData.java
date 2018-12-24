@@ -15,15 +15,14 @@ import java.util.GregorianCalendar;
 import javax.swing.text.DefaultCaret;
 import tas.model.Punch;
 
-public class ViewRetrievePunchList extends JPanel implements AbstractView {
-    
+public class ViewRetrievePayPeriodData extends JPanel implements AbstractView{
     private DefaultController controller;
     private MonthSelector monthSelector;
     private BadgeIdSelector badgeSelector;
     private JTextArea output;
     private JScrollPane outputPanel;
     
-    public ViewRetrievePunchList(DefaultController c){
+    public ViewRetrievePayPeriodData(DefaultController c){
         controller = c;
         
         initComponents();
@@ -74,7 +73,7 @@ public class ViewRetrievePunchList extends JPanel implements AbstractView {
         String badgeId = (String)badgeSelector.getSelectedItem();
         GregorianCalendar date = monthSelector.getGregorianCalendar();
         
-        controller.getPunchList(badgeId,date);
+        controller.getPayPeriodData(badgeId,date);
     }
     private void resetGUI(){
         output.setText("");
@@ -89,13 +88,14 @@ public class ViewRetrievePunchList extends JPanel implements AbstractView {
             badgeSelector.updateBadgeIds(badgeIds);
         }
         
-        else if(e.getPropertyName().equals(DefaultController.UPDATE_DAILY_PUNCH_LIST)){
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_PAY_PERIOD_DATA)){
             String outputText = (String)e.getNewValue();
             
             output.setText(outputText);
+            //outputPanel.set
         }
-        else if(e.getPropertyName().equals(DefaultController.NO_DAILY_PUNCH_LIST_DATA)){
-            output.setText("No Punch Data to Report.");
+        else if(e.getPropertyName().equals(DefaultController.NO_PAY_PERIOD_DATA)){
+            output.setText("No Pay Period Data to Report.");
         }
         else if(e.getPropertyName().equals(DefaultController.RESET_GUI)){
             resetGUI();

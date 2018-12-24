@@ -162,6 +162,12 @@ public class MonthSelector extends JPanel{
         }
         
     }
+    
+    public void resetGUI(){
+        monthComboBox.setSelectedIndex(0);
+        dayComboBox.setSelectedIndex(0);
+        yearComboBox.setSelectedIndex(0);
+    }
    
     
     public GregorianCalendar getGregorianCalendar(){

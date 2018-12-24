@@ -5,6 +5,7 @@
  */
 package tas.controller;
 
+import java.beans.PropertyChangeEvent;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
@@ -24,6 +25,7 @@ public class DefaultController extends AbstractController {
     public static final String BADGE = "Badge";
     public static final String BADGE_ID = "BadgeId";
     public static final String DATE = "Date";
+    public static final String PAY_PERIOD_DATA = "PayPeriodData";
     
     public static final String UPDATE = "Update";
     public static final String INSERT = "Insert";
@@ -36,6 +38,7 @@ public class DefaultController extends AbstractController {
     public static final String INSERT_EMPLOYEE = "InsertEmployee";
     public static final String UPDATE_EMPLOYEE = "UpdateEmployee";
     public static final String RETRIEVE_PUNCH_LIST = "RetrievePunchList";
+    public static final String RETRIEVE_PAY_PERIOD_DATA = "RetrievePayPeriodData";
     
     public static final String PUNCH_IN = "PunchIn";
     public static final String PUNCH_OUT = "PunchOut";
@@ -44,13 +47,19 @@ public class DefaultController extends AbstractController {
     public static final String PUNCH_IN_SUCCESS = "PunchInSuccess";
     public static final String PUNCH_OUT_SUCCESS = "PunchOutSuccess";
     
-    
+    public static final String RESET_GUI = "ResetGUI";
+    public static final String RETURN_HOME = "ReturnHome";
     public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
     public static final String UPDATE_DAILY_PUNCH_LIST = "UpdateDailyPunchList";
+    public static final String UPDATE_PAY_PERIOD_DATA = "UpdatePayPeriodData";
     
     public static final String NO_DAILY_PUNCH_LIST_DATA = "NoDailyPunchListData";
+    public static final String NO_PAY_PERIOD_DATA = "NoPayPeriodData";
     
-    
+    public void returnHome(){
+        showCard(ADMIN_CHOICE);
+        setModelProperty(RETURN_HOME,ADMIN_CHOICE);
+    }
     public void punchIn(String badgeId){
         setModelProperty(PUNCH_IN, badgeId);
     }
@@ -65,7 +74,13 @@ public class DefaultController extends AbstractController {
         getModelProperty(PUNCH_LIST,newValues);
         
     }
-    
+    public void getPayPeriodData(String badgeId, GregorianCalendar date){
+        HashMap<String,Object> newValues = new HashMap();
+        newValues.put(DATE, date);
+        newValues.put(BADGE_ID, badgeId);
+        
+        getModelProperty(PAY_PERIOD_DATA,newValues);
+    }
     
     
     
