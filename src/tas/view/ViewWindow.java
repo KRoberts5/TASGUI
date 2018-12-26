@@ -11,6 +11,8 @@ package tas.view;
  */
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.beans.*;
 import tas.controller.*;
@@ -71,5 +73,17 @@ public class ViewWindow extends JFrame implements AbstractView {
     
     public void modelPropertyChange(PropertyChangeEvent e){
         
+        if(e.getPropertyName().equals(DefaultController.CREATE_TOOLBAR)){
+            JMenuBar toolbar = new JMenuBar();
+            JButton home = new JButton("Return Home");
+            home.addActionListener(new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    controller.returnHome();
+                }
+            });
+            toolbar.add(home);
+            this.setJMenuBar(toolbar);
+        }
     }
 }

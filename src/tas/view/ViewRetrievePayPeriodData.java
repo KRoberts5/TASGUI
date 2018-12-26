@@ -60,9 +60,6 @@ public class ViewRetrievePayPeriodData extends JPanel implements AbstractView{
             }
         });
         buttonPanel.add(submit);
-        ReturnHomeButton home = new ReturnHomeButton(controller);
-        home.setPreferredSize(submit.getPreferredSize());
-        buttonPanel.add(home);
         
         this.add(buttonPanel);
         

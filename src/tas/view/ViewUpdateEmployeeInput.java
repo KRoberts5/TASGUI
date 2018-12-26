@@ -141,11 +141,6 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             }
         });
         submitPanel.add(submit);
-        ReturnHomeButton home = new ReturnHomeButton(controller);
-        home.setPreferredSize(new Dimension(100,30));
-        submitPanel.add(home);
-        
-        //this.add(selectionPanel);
         this.add(inputPanel);
         this.add(submitPanel);
         

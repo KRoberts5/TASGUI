@@ -52,7 +52,8 @@ public class ViewLaunchPanel extends JPanel implements AbstractView {
         admin.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                setApplicationMode(e.getActionCommand());
+                controller.initAdmin();
+                //setApplicationMode(e.getActionCommand());
             }
         });
         buttonPanel.add(admin);

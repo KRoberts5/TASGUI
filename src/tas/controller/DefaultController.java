@@ -56,6 +56,8 @@ public class DefaultController extends AbstractController {
     
     public static final String RESET_GUI = "ResetGUI";
     public static final String RETURN_HOME = "ReturnHome";
+    public static final String ADMIN_GUI = "AdminGUI";
+    public static final String CREATE_TOOLBAR = "CreateToolbar";
     public static final String UPDATE_EMPLOYEE_INFO = "UpdateEmployeeInfo";
     public static final String UPDATE_EMPLOYEE_INPUT = "UpdateEmployeeInput";
     public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
@@ -69,6 +71,10 @@ public class DefaultController extends AbstractController {
     public void returnHome(){
         showCard(ADMIN_CHOICE);
         setModelProperty(RETURN_HOME,ADMIN_CHOICE);
+    }
+    public void initAdmin(){
+        setModelProperty(ADMIN_GUI,ADMIN_GUI);
+        showCard(ADMIN_CHOICE);
     }
     public void punchIn(String badgeId){
         setModelProperty(PUNCH_IN, badgeId);

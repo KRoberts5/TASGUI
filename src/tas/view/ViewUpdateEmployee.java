@@ -38,9 +38,6 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
     private void initComponents(){
         this.setLayout(new BorderLayout());
         
-        ReturnHomeButton home = new ReturnHomeButton(controller);
-        this.add(home,BorderLayout.SOUTH);
-        
         titlePanel = new JPanel();
         comboPanel = new JPanel();
         textFieldPanel = new JPanel();
@@ -54,26 +51,6 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         instruction.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
         titlePanel.add(instruction);
         this.add(titlePanel,BorderLayout.NORTH);
-        
-        textFieldPanel.setLayout(new FlowLayout());
-        JLabel badgeId = new JLabel("Badge ID:");
-        textFieldPanel.add(badgeId);
-        badgeIdInput = new JTextField();
-        badgeIdInput.setPreferredSize(new Dimension(150,50));
-        textFieldPanel.add(badgeIdInput);
-        JButton submit = new JButton("Submit");
-        submit.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String badgeId = badgeIdInput.getText();
-                submit(badgeId);
-                resetGUI();
-            }
-        });
-        textFieldPanel.add(submit);
-        
-        tabPanel.add("Search Manually",textFieldPanel);
-        
         
         comboPanel.setLayout(new FlowLayout());
         badgeSelector = new BadgeIdSelector();
@@ -94,6 +71,33 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
         comboPanel.add(submit2);
         
         tabPanel.add("Select Badge Id" , comboPanel);
+        
+        textFieldPanel.setLayout(new FlowLayout());
+        JLabel badgeId = new JLabel("Badge ID:");
+        textFieldPanel.add(badgeId);
+        badgeIdInput = new JTextField();
+        badgeIdInput.setPreferredSize(new Dimension(150,50));
+        textFieldPanel.add(badgeIdInput);
+        JButton submit = new JButton("Submit");
+        submit.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String badgeId = badgeIdInput.getText();
+                submit(badgeId);
+                resetGUI();
+            }
+        });
+        textFieldPanel.add(submit);
+        
+        tabPanel.add("Search Manually",textFieldPanel);
+        
+        JLabel comboLabel = new JLabel("Select ID");
+        comboLabel.setPreferredSize(new Dimension(200,30));
+        tabPanel.setTabComponentAt(0, comboLabel);
+        JLabel textFieldLabel = new JLabel("Search Manually");
+        textFieldLabel.setPreferredSize(new Dimension(200,30));
+        tabPanel.setTabComponentAt(1, textFieldLabel);
+        
         
         this.add(tabPanel);
     }

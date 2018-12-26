@@ -25,6 +25,11 @@ public class DefaultModel extends AbstractModel {
         db = new TASDatabase();
     }
     
+    public void setAdminGUI(String s){
+        init();
+        firePropertyChange(DefaultController.CREATE_TOOLBAR,null,null);
+    }
+    
     public void setPunchIn(String badgeId){
         
         badgeId = badgeId.toUpperCase();

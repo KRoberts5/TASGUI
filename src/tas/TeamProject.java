@@ -64,7 +64,6 @@ public class TeamProject {
         c.addView(retrievePayPeriodData);
         c.addView(updateEmployeeInput);
         
-        m.init();
         
         EventQueue.invokeLater(() -> {
         
