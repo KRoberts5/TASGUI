@@ -20,6 +20,8 @@ public class ViewRetrievePayPeriodData extends JPanel implements AbstractView{
     private MonthSelector monthSelector;
     private BadgeIdSelector badgeSelector;
     private JTextArea output;
+    private JTable overview;
+    private JTable punchData;
     private JScrollPane outputPanel;
     
     public ViewRetrievePayPeriodData(DefaultController c){
