@@ -67,6 +67,8 @@ public class DefaultController extends AbstractController {
     
     public static final String NO_DAILY_PUNCH_LIST_DATA = "NoDailyPunchListData";
     public static final String NO_PAY_PERIOD_DATA = "NoPayPeriodData";
+    public static final String PUNCH_DATA = "PunchData";
+    public static final String PAY_PERIOD_OVERVIEW = "PayPeriodOverview";
     
     public void returnHome(){
         showCard(ADMIN_CHOICE);
