@@ -53,13 +53,26 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         
         inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(0,3));
+        inputPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10,10,10,10);
+        
+        
         JLabel field = new JLabel("Field");
         JLabel currentValue = new JLabel("Current Value");
         JLabel updateValue = new JLabel("Update Value");
-        inputPanel.add(field);
-        inputPanel.add(currentValue);
-        inputPanel.add(updateValue);
+        inputPanel.add(field,gbc);
+        gbc.gridx = 1;
+        inputPanel.add(currentValue,gbc);
+        gbc.gridx = 2;
+        inputPanel.add(updateValue,gbc);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         
         JCheckBox badgeIdBox = new JCheckBox("Badge Id");
         badgeIdBox.addActionListener(new ActionListener(){
@@ -79,10 +92,15 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         badgeIdField.setActionCommand(DefaultController.BADGE_ID);
         badgeIdField.setEditable(false);
         
-        inputPanel.add(badgeIdBox);
-        inputPanel.add(badgeIdValue);
-        inputPanel.add(badgeIdField);
+        inputPanel.add(badgeIdBox,gbc);
+        gbc.gridx = 1;
+        inputPanel.add(badgeIdValue,gbc);
+        gbc.gridx = 2;
+        inputPanel.add(badgeIdField,gbc);
         inputFields.add(badgeIdField);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         
         JCheckBox fnameBox = new JCheckBox("First Name");
         fnameBox.addActionListener(new ActionListener(){
@@ -102,10 +120,15 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         fnameField.setActionCommand(DefaultController.FIRSTNAME);
         fnameField.setEditable(false);
         
-        inputPanel.add(fnameBox);
-        inputPanel.add(fnameValue);
-        inputPanel.add(fnameField);
+        inputPanel.add(fnameBox,gbc);
+        gbc.gridx = 1;
+        inputPanel.add(fnameValue,gbc);
+        gbc.gridx = 2;
+        inputPanel.add(fnameField,gbc);
         inputFields.add(fnameField);
+        
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         
         JCheckBox mnameBox = new JCheckBox("Middle Name");
         mnameBox.addActionListener(new ActionListener(){
@@ -125,9 +148,11 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         mnameField.setActionCommand(DefaultController.FIRSTNAME);
         mnameField.setEditable(false);
         
-        inputPanel.add(mnameBox);
-        inputPanel.add(mnameValue);
-        inputPanel.add(mnameField);
+        inputPanel.add(mnameBox,gbc);
+        gbc.gridx = 1;
+        inputPanel.add(mnameValue,gbc);
+        gbc.gridx = 2;
+        inputPanel.add(mnameField,gbc);
         inputFields.add(mnameField);
 
         
