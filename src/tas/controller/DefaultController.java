@@ -22,6 +22,10 @@ public class DefaultController extends AbstractController {
     public static final String DEPARTMENT_ID = "departmentid";
     public static final String SHIFT_ID = "shiftid";
     
+    public static final String TERMINAL_ID = "terminalid";
+    public static final String PUNCH_TYPE_ID = "punchtypeid";
+    public static final String ORIGINAL_TIMESTAMP = "orgiginaltimestamp";
+    
     
     public static final String PUNCH = "Punch";
     public static final String PUNCH_LIST = "PunchList";
@@ -70,6 +74,7 @@ public class DefaultController extends AbstractController {
     public static final String UPDATE_VALUES = "UpdateValues";
     public static final String UPDATE_EMPLOYEE_SUCCESS = "UpdateEmployeeSuccess";
     public static final String UPDATE_EMPLOYEE_FAILED = "UpdateEmployeeFailed";
+    public static final String UPDATE_PUNCH_TYPE_IDS = "UpdatePunchTypeIds";
     
     public static final String NO_DAILY_PUNCH_LIST_DATA = "NoDailyPunchListData";
     public static final String NO_PAY_PERIOD_DATA = "NoPayPeriodData";
@@ -77,6 +82,9 @@ public class DefaultController extends AbstractController {
     public static final String PAY_PERIOD_OVERVIEW = "PayPeriodOverview";
     
     public static final String EMPLOYEE_ENTRY = "EmployeeEntry";
+    public static final String INSERT_PUNCH = "InsertPunch";
+    public static final String INSERT_PUNCH_SUCCESS = "InsertPunchSuccess";
+    public static final String INSERT_PUNCH_FAILED = "InsertPunchFailed";
     
     public void returnHome(){
         showCard(ADMIN_CHOICE);
@@ -112,6 +120,10 @@ public class DefaultController extends AbstractController {
     }
     public void updateEmployeeEntry(HashMap<String,Object> values){
         updateDatabaseProperty(EMPLOYEE_ENTRY,values);
+    }
+    
+    public void insertPunch(HashMap<String,Object> values){
+        insertDatabaseProperty(PUNCH,values);
     }
     
     

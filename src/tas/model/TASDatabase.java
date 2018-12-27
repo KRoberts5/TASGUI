@@ -116,6 +116,25 @@ public class TASDatabase {
         return badgeIds;
     }
     
+    public HashMap<String,Integer> getPunchTypeIds(){
+        HashMap<String,Integer> punchIds = new HashMap();
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT id, description FROM punchtype; ");
+            ResultSet result = pst.executeQuery();
+            while(result.next()){
+                Integer id = result.getInt("id");
+                String desc = result.getString("description");
+                punchIds.put(desc, id);
+            }
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return punchIds;
+    }
+    
     public double getEmployeeWage(String badgeId){
         double wage = 0;
         try{

@@ -45,6 +45,7 @@ public class TeamProject {
         ViewRetrievePunchList retrievePunchList = new ViewRetrievePunchList(c);
         ViewRetrievePayPeriodData retrievePayPeriodData = new ViewRetrievePayPeriodData(c);
         ViewUpdateEmployeeInput updateEmployeeInput = new ViewUpdateEmployeeInput(c);
+        ViewInsertPunch insertPunch = new ViewInsertPunch(c);
         
         views.put(DefaultController.TERMINAL, terminal);
         views.put(DefaultController.LAUNCH,launchPanel);
@@ -53,6 +54,7 @@ public class TeamProject {
         views.put(DefaultController.RETRIEVE_PUNCH_LIST, retrievePunchList);
         views.put(DefaultController.RETRIEVE_PAY_PERIOD_DATA, retrievePayPeriodData);
         views.put(DefaultController.UPDATE_EMPLOYEE_INPUT, updateEmployeeInput);
+        views.put(DefaultController.INSERT_PUNCH, insertPunch);
         
         
         c.addModel(m);
@@ -63,6 +65,7 @@ public class TeamProject {
         c.addView(retrievePunchList);
         c.addView(retrievePayPeriodData);
         c.addView(updateEmployeeInput);
+        c.addView(insertPunch);
         
         
         EventQueue.invokeLater(() -> {

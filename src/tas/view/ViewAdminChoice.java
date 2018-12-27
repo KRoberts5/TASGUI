@@ -90,7 +90,7 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         insertTab.add(insertEmployee);
         
         JRadioButton insertPunch = new JRadioButton("Punch");
-        insertPunch.setActionCommand("");
+        insertPunch.setActionCommand(DefaultController.INSERT_PUNCH);
         insertSelections.add(insertPunch);
         insertButtons.add(insertPunch);
         insertTab.add(insertPunch);
@@ -104,7 +104,11 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         submitInsert.addActionListener(new ActionListener(){
             @Override 
             public void actionPerformed(ActionEvent e){
-                //Finish
+                for(JRadioButton b: insertSelections){
+                    if(b.isSelected()){
+                        controller.showCard(b.getActionCommand());
+                    }
+                }
             }
         });
         insertTab.add(submitInsert);

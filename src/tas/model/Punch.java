@@ -54,6 +54,16 @@ public class Punch {
         
     }
     
+    public Punch(Badge badge, int terminalId, GregorianCalendar ots,int ptid){
+        this.badge = badge;
+        this.id = 0;
+        this.terminalId = terminalId;
+        this.originalTimestamp = ots;
+        
+        this.adjustedTimestamp = null;
+        this.eventData = "";
+    }
+    
     public Punch(Badge badge,int id, int terminalId, GregorianCalendar ots, int ptid ){
         this.badge = badge;
         this.id = id;

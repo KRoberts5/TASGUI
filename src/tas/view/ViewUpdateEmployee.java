@@ -117,7 +117,7 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
             
             ArrayList<String> badgeIds = (ArrayList<String>)e.getNewValue();
             
-            this.badgeSelector.updateBadgeIds(badgeIds);
+           this.badgeSelector.updateBadgeIds(badgeIds);
             
         }
         

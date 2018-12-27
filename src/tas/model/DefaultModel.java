@@ -234,6 +234,27 @@ public class DefaultModel extends AbstractModel {
         }
     }
     
+    public void insertPunch(HashMap<String,Object> values){
+        String badgeId = (String)values.get(DefaultController.BADGE_ID);
+        Integer termId = (Integer)values.get(DefaultController.TERMINAL_ID);
+        GregorianCalendar ots = (GregorianCalendar)values.get(DefaultController.ORIGINAL_TIMESTAMP);
+        Integer ptid = (Integer)values.get(DefaultController.PUNCH_TYPE_ID);
+        
+        
+        
+        Badge b = db.getBadge(badgeId);
+        Punch p = new Punch(b,termId,ots,ptid);
+        
+        int records = db.insertPunch(p);
+        
+        if(records > 0){
+            firePropertyChange(DefaultController.INSERT_PUNCH_SUCCESS,null,null);
+        }
+        else
+            firePropertyChange(DefaultController.INSERT_PUNCH_FAILED,null,null);
+            
+    }
+    
     public void setReturnHome(String homeName){
         firePropertyChange(DefaultController.RESET_GUI,null,null);
     }
@@ -250,6 +271,9 @@ public class DefaultModel extends AbstractModel {
         
         HashMap<String,Integer> empTypeIds = db.getEmployeeTypeIds();
         firePropertyChange(DefaultController.UPDATE_EMP_TYPE_IDS,null,empTypeIds);
+        
+        HashMap<String,Integer> punchTypeIds = db.getPunchTypeIds();
+        firePropertyChange(DefaultController.UPDATE_PUNCH_TYPE_IDS,null,punchTypeIds);
     }
     
     
