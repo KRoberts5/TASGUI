@@ -169,30 +169,6 @@ public class DefaultModel extends AbstractModel {
             firePropertyChange(DefaultController.UPDATE_PAY_PERIOD_DATA,null,output);
             
         }
-        /*else{
-        
-            Shift s = db.getShift(b);
-            double wage = db.getEmployeeWage(badgeId);
-            double overtime = db.getEmployeeOvertime(badgeId);
-
-            double salary = TASLogic.calculatePayPeriodSalary(payPeriodPunchList, s, wage, overtime);
-            double absenteeismPercentage = TASLogic.calculateAbsenteeism(payPeriodPunchList, s);
-
-            Absenteeism absenteeism = new Absenteeism(badgeId,ts,absenteeismPercentage);
-
-
-
-            String output = absenteeism.toString() + "\n";
-            output += "Gross Salary: $" + salary + "\n";
-            output += "Punch Data:\n\n";
-            for(Punch p: payPeriodPunchList){
-                p.adjust(s);
-                output += p.printOriginalTimestamp() + "\n";
-                output += p.printAdjustedTimestamp() + "\n\n";
-            }
-            
-            firePropertyChange(DefaultController.UPDATE_PAY_PERIOD_DATA,null,output);
-        }*/
     }
     
     public void getUpdateEmployeeInfo(String badgeId){
@@ -210,6 +186,54 @@ public class DefaultModel extends AbstractModel {
         
     }
     
+    public void updateEmployeeEntry(HashMap<String,Object> update){
+        String badgeId = (String)update.get(DefaultController.BADGE_ID);
+        HashMap<String,String> updateValues = (HashMap<String,String>)update.get(DefaultController.UPDATE_VALUES);
+        
+        boolean allSuccessful = true;
+        boolean success = true;
+        ArrayList<String> failedUpdates = new ArrayList();
+        
+        for(HashMap.Entry<String,String> e: updateValues.entrySet()){
+            success = true;
+            switch(e.getKey()){
+                case DefaultController.FIRSTNAME: 
+                    success = db.updateEmployeeFirstName(badgeId, e.getValue());
+                    break;
+                case DefaultController.MIDDLENAME: 
+                    success = db.updateEmployeeMiddleName(badgeId, e.getValue());
+                    break;
+                case DefaultController.LASTNAME:
+                    success = db.updateEmployeeLastName(badgeId, e.getValue());
+                    break;
+                case DefaultController.EMPLOYEE_TYPE_ID: 
+                    int empTypeId = Integer.parseInt(e.getValue());
+                    success = db.updateEmployeeEmployeeTypeId(badgeId, empTypeId);
+                    break;
+                case DefaultController.DEPARTMENT_ID: 
+                    int depId = Integer.parseInt(e.getValue());
+                    success = db.updateEmployeeDepartmentId(badgeId, depId);
+                    break;
+                case DefaultController.SHIFT_ID:
+                    int shiftId = Integer.parseInt(e.getValue());
+                    success = db.updateEmployeeShiftId(badgeId, shiftId);
+                    break;
+            }
+            
+            if(!success){
+                allSuccessful = false;
+                failedUpdates.add(e.getKey());
+            }
+        }
+        
+        if(allSuccessful){
+            firePropertyChange(DefaultController.UPDATE_EMPLOYEE_SUCCESS,null,null);
+        }
+        else{
+            firePropertyChange(DefaultController.UPDATE_EMPLOYEE_FAILED,null,failedUpdates);
+        }
+    }
+    
     public void setReturnHome(String homeName){
         firePropertyChange(DefaultController.RESET_GUI,null,null);
     }
@@ -218,6 +242,14 @@ public class DefaultModel extends AbstractModel {
         ArrayList<String> badgeIds = db.getBadgeIdList();
         firePropertyChange(DefaultController.UPDATE_BADGE_IDS,null, badgeIds);
         
+        HashMap<String,Integer> shiftIds = db.getShiftIds();
+        firePropertyChange(DefaultController.UPDATE_SHIFT_IDS,null,shiftIds);
+        
+        HashMap<String,Integer> depIds = db.getDepartmentIds();
+        firePropertyChange(DefaultController.UPDATE_DEP_IDS,null,depIds);
+        
+        HashMap<String,Integer> empTypeIds = db.getEmployeeTypeIds();
+        firePropertyChange(DefaultController.UPDATE_EMP_TYPE_IDS,null,empTypeIds);
     }
     
     

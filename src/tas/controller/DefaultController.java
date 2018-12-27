@@ -62,13 +62,21 @@ public class DefaultController extends AbstractController {
     public static final String UPDATE_EMPLOYEE_INPUT = "UpdateEmployeeInput";
     public static final String UPDATE_BADGE_IDS = "UpdateBadgeIds";
     public static final String UPDATE_BADGE_ID = "UpdateBadgeId";
+    public static final String UPDATE_EMP_TYPE_IDS = "UpdateEmpTypeIds";
+    public static final String UPDATE_DEP_IDS = "UpdateDepIds";
+    public static final String UPDATE_SHIFT_IDS = "UpdateShiftIds";
     public static final String UPDATE_DAILY_PUNCH_LIST = "UpdateDailyPunchList";
     public static final String UPDATE_PAY_PERIOD_DATA = "UpdatePayPeriodData";
+    public static final String UPDATE_VALUES = "UpdateValues";
+    public static final String UPDATE_EMPLOYEE_SUCCESS = "UpdateEmployeeSuccess";
+    public static final String UPDATE_EMPLOYEE_FAILED = "UpdateEmployeeFailed";
     
     public static final String NO_DAILY_PUNCH_LIST_DATA = "NoDailyPunchListData";
     public static final String NO_PAY_PERIOD_DATA = "NoPayPeriodData";
     public static final String PUNCH_DATA = "PunchData";
     public static final String PAY_PERIOD_OVERVIEW = "PayPeriodOverview";
+    
+    public static final String EMPLOYEE_ENTRY = "EmployeeEntry";
     
     public void returnHome(){
         showCard(ADMIN_CHOICE);
@@ -101,6 +109,9 @@ public class DefaultController extends AbstractController {
     }
     public void getEmployeeData(String badgeId){
         getModelProperty(UPDATE_EMPLOYEE_INFO,badgeId);
+    }
+    public void updateEmployeeEntry(HashMap<String,Object> values){
+        updateDatabaseProperty(EMPLOYEE_ENTRY,values);
     }
     
     

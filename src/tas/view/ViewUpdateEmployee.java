@@ -108,6 +108,7 @@ public class ViewUpdateEmployee extends JPanel implements AbstractView{
     }
     private void resetGUI(){
         this.badgeIdInput.setText("");
+        this.badgeSelector.setSelectedIndex(0);
     }
     public void modelPropertyChange(PropertyChangeEvent e){
         //Add RefreshBadgeIds

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.*;
 import tas.controller.DefaultController;
 
@@ -28,13 +29,14 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
     private JCheckBox selectAll;
     private ArrayList<JCheckBox> selectionBoxes;
     private ArrayList<JTextField> inputFields;
+    private ArrayList<IdSelector> selectors;
     private JTextField badgeIdField;
     private JTextField fnameField;
     private JTextField mnameField;
     private JTextField lnameField;
-    private JTextField empTypeField;
-    private JTextField depIdField;
-    private JTextField shiftIdField;
+    private IdSelector empTypeField;
+    private IdSelector depIdField;
+    private IdSelector shiftIdField;
     private JTextField activeField;
     private JTextField inactiveField;
     
@@ -55,6 +57,7 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
     private void initComponents(){
         selectionBoxes = new ArrayList();
         inputFields = new ArrayList();
+        selectors = new ArrayList();
         
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         
@@ -84,18 +87,27 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         selectAll.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                for(int i = 0; i < selectionBoxes.size();++i){
-                    JCheckBox b = selectionBoxes.get(i);
-                    JTextField f = inputFields.get(i);
-                    
+                for(JCheckBox b: selectionBoxes){
+                    if(selectAll.isSelected())
+                        b.setSelected(true);                
+                    else
+                        b.setSelected(false);
+                }
+                for(JTextField f : inputFields){
                     if(selectAll.isSelected()){
-                        b.setSelected(true);
                         f.setEditable(true);
                     }
                     else{
-                        b.setSelected(false);
                         f.setEditable(false);
                         f.setText("");
+                    }
+                }
+                for(IdSelector i : selectors){
+                    if(selectAll.isSelected()){
+                        i.setEnabled(true);
+                    }
+                    else{
+                        i.setEnabled(false);
                     }
                 }
             }
@@ -239,11 +251,11 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(empTypeBox.isSelected()){
-                    empTypeField.setEditable(true);
+                    empTypeField.setEnabled(true);
                 }
                 else{
-                    empTypeField.setEditable(false);
-                    empTypeField.setText("");
+                    empTypeField.setEnabled(false);
+                    //empTypeField.setText("");
                     
                     if(selectAll.isSelected())
                         selectAll.setSelected(false);
@@ -251,16 +263,16 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             }
         });
         empTypeValue = new JLabel("Old Value");
-        empTypeField = new JTextField();
+        empTypeField = new IdSelector();
         empTypeField.setActionCommand(DefaultController.EMPLOYEE_TYPE_ID);
-        empTypeField.setEditable(false);
+        empTypeField.setEnabled(false);
         
         inputPanel.add(empTypeBox,gbc);
         gbc.gridx = 1;
         inputPanel.add(empTypeValue,gbc);
         gbc.gridx = 2;
         inputPanel.add(empTypeField,gbc);
-        inputFields.add(empTypeField);
+        selectors.add(empTypeField);
         
         gbc.gridx = 0;
         gbc.gridy = ++y;
@@ -271,11 +283,11 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(depIdBox.isSelected()){
-                    depIdField.setEditable(true);
+                    depIdField.setEnabled(true);
                 }
                 else{
-                    depIdField.setEditable(false);
-                    depIdField.setText("");
+                    depIdField.setEnabled(false);
+                    //depIdField.setText("");
                     
                     if(selectAll.isSelected())
                         selectAll.setSelected(false);
@@ -283,16 +295,16 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             }
         });
         depIdValue = new JLabel("Old Value");
-        depIdField = new JTextField();
+        depIdField = new IdSelector();
         depIdField.setActionCommand(DefaultController.DEPARTMENT_ID);
-        depIdField.setEditable(false);
+        depIdField.setEnabled(false);
         
         inputPanel.add(depIdBox,gbc);
         gbc.gridx = 1;
         inputPanel.add(depIdValue,gbc);
         gbc.gridx = 2;
         inputPanel.add(depIdField,gbc);
-        inputFields.add(depIdField);
+        selectors.add(depIdField);
         
         gbc.gridx = 0;
         gbc.gridy = ++y;
@@ -303,11 +315,11 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(shiftIdBox.isSelected()){
-                    shiftIdField.setEditable(true);
+                    shiftIdField.setEnabled(true);
                 }
                 else{
-                    shiftIdField.setEditable(false);
-                    shiftIdField.setText("");
+                    shiftIdField.setEnabled(false);
+                    //shiftIdField.setText("");
                     
                     if(selectAll.isSelected())
                         selectAll.setSelected(false);
@@ -315,16 +327,16 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             }
         });
         shiftIdValue = new JLabel("Old Value");
-        shiftIdField = new JTextField();
+        shiftIdField = new IdSelector();
         shiftIdField.setActionCommand(DefaultController.SHIFT_ID);
-        shiftIdField.setEditable(false);
+        shiftIdField.setEnabled(false);
         
         inputPanel.add(shiftIdBox,gbc);
         gbc.gridx = 1;
         inputPanel.add(shiftIdValue,gbc);
         gbc.gridx = 2;
         inputPanel.add(shiftIdField,gbc);
-        inputFields.add(shiftIdField);
+        selectors.add(shiftIdField);
         
         JPanel submitPanel = new JPanel();
         JButton submit = new JButton("Submit");
@@ -344,7 +356,72 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
     }
     
     private void submit(){
+        HashMap<String,Object> update = new HashMap();
+        HashMap<String,String> updateValues = new HashMap();
+
+        boolean validInput = true;
         
+        update.put(DefaultController.BADGE_ID, this.originalBadgeId);
+        
+        for(JTextField f: inputFields){
+            if(f.isEditable()){
+                String text = f.getText();
+                if(text.matches("[a-zA-Z]+")){
+                    
+                    text = formatName(text);
+                    
+                    if(f.equals(fnameField)){
+                        updateValues.put(DefaultController.FIRSTNAME, text);
+                    }
+                    else if(f.equals(mnameField)){
+                        updateValues.put(DefaultController.MIDDLENAME, text);
+                    }
+                    else if(f.equals(lnameField)){
+                        updateValues.put(DefaultController.LASTNAME, text);
+                    }
+                }
+                else
+                    validInput = false;
+            }
+        }
+        for(IdSelector i: selectors){
+            if(i.isEnabled()){
+                int id = i.getSelectedItemId();
+                
+                if(i.equals(empTypeField)){
+                    updateValues.put(DefaultController.EMPLOYEE_TYPE_ID, String.valueOf(id));
+                }
+                else if(i.equals(depIdField)){
+                    updateValues.put(DefaultController.DEPARTMENT_ID, String.valueOf(id));
+                }
+                else if(i.equals(shiftIdField)){
+                    updateValues.put(DefaultController.SHIFT_ID, String.valueOf(id));
+                }
+            }
+        }
+        
+        update.put(DefaultController.UPDATE_VALUES, updateValues);
+        
+        if(validInput){
+            controller.updateEmployeeEntry(update);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Invalid Input.");
+        }
+    }
+    
+    private String formatName(String text){
+        String name = "";
+        
+        text = text.toUpperCase();
+        char[] characters = text.toCharArray();
+        
+        name += characters[0];
+        for(int i = 1; i < characters.length; ++i){
+           Character c = characters[i];
+           name += c.toString().toLowerCase();
+        }
+        return name;
     }
     
     private void resetGUI(){
@@ -356,6 +433,13 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
             f.setText("");
             f.setEditable(false);
         }
+        for(IdSelector i: selectors){
+            i.setSelectedIndex(0);
+            i.setEnabled(false);
+        }
+    }
+    private void updateIds(IdSelector i, HashMap<String,Integer> values){
+        i.updateElements(values);
     }
     public void modelPropertyChange(PropertyChangeEvent e){
         //Add RefreshBadgeIds
@@ -383,6 +467,39 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
         }
         else if(e.getPropertyName().equals(DefaultController.UPDATE_BADGE_ID)){
             this.originalBadgeId = (String)e.getNewValue();
+        }
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_DEP_IDS)){
+            HashMap<String,Integer> values = (HashMap<String,Integer>)e.getNewValue();
+            this.updateIds(depIdField, values);
+        }
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_EMP_TYPE_IDS)){
+            HashMap<String,Integer> values = (HashMap<String,Integer>)e.getNewValue();
+            this.updateIds(empTypeField, values);
+        }
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_SHIFT_IDS)){
+            HashMap<String,Integer> values = (HashMap<String,Integer>)e.getNewValue();
+            this.updateIds(shiftIdField, values);
+        }
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_EMPLOYEE_SUCCESS)){
+            JOptionPane.showMessageDialog(this, "Update Successful.");
+            controller.returnHome();
+        }
+        else if(e.getPropertyName().equals(DefaultController.UPDATE_EMPLOYEE_FAILED)){
+            ArrayList<String> failures = (ArrayList<String>)e.getNewValue();
+            
+            String message = "The following fields failed to update:\n(";
+            for(int i = 0; i < failures.size(); ++i){
+                String f = failures.get(i);
+                message += f;
+                
+                if((i + 1) == failures.size()){
+                    message+= ")";
+                }
+                else
+                    message += ", ";
+                
+            }
+            JOptionPane.showMessageDialog(this, message);
         }
     }
 }

@@ -352,6 +352,185 @@ public class TASDatabase {
         return shift;
     }
     
+    public HashMap<String,Integer> getShiftIds(){
+        HashMap<String,Integer> shiftIds = new HashMap();
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT id, description FROM shift; ");
+            ResultSet result = pst.executeQuery();
+            while(result.next()){
+                Integer id = result.getInt("id");
+                String desc = result.getString("description");
+                shiftIds.put(desc, id);
+            }
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return shiftIds;
+    }
+    
+    public HashMap<String,Integer> getDepartmentIds(){
+        HashMap<String,Integer> depIds = new HashMap();
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT id, description FROM department; ");
+            ResultSet result = pst.executeQuery();
+            while(result.next()){
+                Integer id = result.getInt("id");
+                String desc = result.getString("description");
+                depIds.put(desc, id);
+            }
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return depIds;
+    }
+    public HashMap<String,Integer> getEmployeeTypeIds(){
+        HashMap<String,Integer> empTypeIds = new HashMap();
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT id, description FROM employeetype; ");
+            ResultSet result = pst.executeQuery();
+            while(result.next()){
+                Integer id = result.getInt("id");
+                String desc = result.getString("description");
+                empTypeIds.put(desc, id);
+            }
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return empTypeIds;
+    }
+    
+    public boolean updateEmployeeFirstName(String badgeId, String value ){
+        
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET firstname = ? WHERE badgeid = ?;");
+            pst.setString(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean updateEmployeeMiddleName(String badgeId, String value ){
+        
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET middlename = ? WHERE badgeid = ?;");
+            pst.setString(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean updateEmployeeLastName(String badgeId, String value ){
+        
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET lastname = ? WHERE badgeid = ?;");
+            pst.setString(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean updateEmployeeDepartmentId(String badgeId, int value){
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET departmentid = ? WHERE badgeid = ?;");
+            pst.setInt(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean updateEmployeeShiftId(String badgeId, int value){
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET shiftid = ? WHERE badgeid = ?;");
+            pst.setInt(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean updateEmployeeEmployeeTypeId(String badgeId, int value){
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("UPDATE employee SET employeetypeid = ? WHERE badgeid = ?;");
+            pst.setInt(1, value);
+            pst.setString(2, badgeId);
+            int numChanges =  pst.executeUpdate();
+            
+            if(numChanges == 1){
+                success = true;
+            }
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
     public void updateDailySchedule(Shift shift, int dailyScheduleId, int day){
         
         //System.out.println("Day: " + day);
