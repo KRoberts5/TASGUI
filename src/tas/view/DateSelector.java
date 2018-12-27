@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 
 
 
-public class MonthSelector extends JPanel{
+public class DateSelector extends JPanel{
     
     private GregorianCalendar gc;
     
@@ -30,7 +30,7 @@ public class MonthSelector extends JPanel{
     private JComboBox dayComboBox;
     private JComboBox yearComboBox;
     
-    public MonthSelector(){
+    public DateSelector(){
         gc = new GregorianCalendar(2018,Calendar.JANUARY,1);
         months = new ArrayList();
         daysOfMonth = new ArrayList();

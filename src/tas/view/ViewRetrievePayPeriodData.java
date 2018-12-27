@@ -20,7 +20,7 @@ import tas.model.Punch;
 
 public class ViewRetrievePayPeriodData extends JPanel implements AbstractView{
     private DefaultController controller;
-    private MonthSelector monthSelector;
+    private DateSelector monthSelector;
     private BadgeIdSelector badgeSelector;
     private JTextArea output;
     private JTable overview;
@@ -51,7 +51,7 @@ public class ViewRetrievePayPeriodData extends JPanel implements AbstractView{
         
         inputPanel.add(badgePanel);
         
-        monthSelector = new MonthSelector();
+        monthSelector = new DateSelector();
         inputPanel.add(monthSelector);
         
         this.add(inputPanel);

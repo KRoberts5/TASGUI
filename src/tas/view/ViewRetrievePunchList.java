@@ -18,7 +18,7 @@ import tas.model.Punch;
 public class ViewRetrievePunchList extends JPanel implements AbstractView {
     
     private DefaultController controller;
-    private MonthSelector monthSelector;
+    private DateSelector monthSelector;
     private BadgeIdSelector badgeSelector;
     private JTextArea output;
     private JScrollPane outputPanel;
@@ -40,7 +40,7 @@ public class ViewRetrievePunchList extends JPanel implements AbstractView {
         badgePanel.add(badgeSelector);
         this.add(badgePanel);
         
-        monthSelector = new MonthSelector();
+        monthSelector = new DateSelector();
         this.add(monthSelector);
         
         output = new JTextArea("");
