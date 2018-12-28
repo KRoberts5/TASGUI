@@ -74,6 +74,29 @@ public class TASDatabase {
         
         return punch;
     }
+    
+    public ArrayList<Punch> getTimedOutPunches(String badgeId){
+        ArrayList<Punch> punches = new ArrayList();
+        
+        try{
+            int ptid = Punch.TIMED_OUT;
+            PreparedStatement pst = conn.prepareStatement("SELECT punch.id FROM punch WHERE badgeid = ? AND punchtypeid = ?;");
+            pst.setString(1, badgeId);
+            pst.setInt(2, ptid);
+            ResultSet result = pst.executeQuery();
+            
+            while(result.next()){
+                int id = result.getInt("id");
+                
+                Punch p = getPunch(id);
+                punches.add(p);
+            }
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return punches;
+    }
+    
     public Badge getBadge(String id){
         Badge badge = null;
         
