@@ -18,6 +18,9 @@ import java.util.GregorianCalendar;
 
 public class DateSelector extends JPanel{
     
+    private static final int FIRST_YEAR = 2018;
+    private static final int LAST_YEAR = 2020;
+    
     private GregorianCalendar gc;
     
     private String[] monthNames = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
@@ -53,7 +56,10 @@ public class DateSelector extends JPanel{
             daysOfMonth.add(i);
         }
         
-        years.add(2018);
+        for(int i = FIRST_YEAR; i <= LAST_YEAR; ++i){
+            years.add(i);
+        }
+        
         
         initComponents();
     }
@@ -124,7 +130,8 @@ public class DateSelector extends JPanel{
                 int year = (Integer)yearComboBox.getSelectedItem();
                 gc.set(Calendar.YEAR, year);
                 
-                //printGC();
+                if(gc.get(Calendar.MONTH) == Calendar.FEBRUARY)
+                    refreshDays();
             }
         });
         this.add(yearComboBox);
@@ -132,35 +139,16 @@ public class DateSelector extends JPanel{
     }
     private void refreshDays(){
         
-        int month = gc.get(Calendar.MONTH);
-        int maxDays = 0;
+        int numDays = dayComboBox.getItemCount();
+        int daysInMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
         
-        switch(month){
-            case 0: case 2: case 4: case 6: case 7: case 9: case 11:
-                maxDays = 31;
-                
-                break;
-            case 3: case 5: case 8: case 10:
-                maxDays = 30;
-
-                break;
-            case 1:
-                maxDays = 28;
-                break;
-            default:
-                maxDays = 30;
+        if(numDays != daysInMonth){
+            dayComboBox.removeAllItems();
+            
+            for(int i = 1; i<= daysInMonth; ++i){
+                dayComboBox.addItem(i);
+            }
         }
-        
-       ArrayList<Integer> days = new ArrayList();
-        for(int i = 1; i<= maxDays; ++i){
-            days.add(i);
-        }
-        
-        dayComboBox.removeAllItems();
-        for(Integer i: days){
-            dayComboBox.addItem(i);
-        }
-        
     }
     
     public void resetGUI(){
