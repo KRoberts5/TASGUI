@@ -281,8 +281,11 @@ public class DefaultModel extends AbstractModel {
                 firePropertyChange(DefaultController.INSERT_EMPLOYEE_FAILED,null,null);
             }
             
-            if(success)
+            if(success){
                 firePropertyChange(DefaultController.INSERT_EMPLOYEE_SUCCESS,null,null);
+                ArrayList<String> badgeIds = db.getBadgeIdList();
+                firePropertyChange(DefaultController.UPDATE_BADGE_IDS,null,badgeIds);
+            }
         }
         else{
             firePropertyChange(DefaultController.BADGE_ID_TAKEN,null,null);
