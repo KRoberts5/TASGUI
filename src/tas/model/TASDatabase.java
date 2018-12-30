@@ -43,6 +43,70 @@ public class TASDatabase {
         catch(Exception e){System.err.println(e.getMessage());}
     }
     
+    public boolean checkBadgeIdAvailability(String badgeId){
+        boolean available = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("SELECT * FROM badge WHERE id = ?;");
+            pst.setString(1, badgeId);
+            
+            ResultSet result = pst.executeQuery();
+            
+            if(!result.next())
+                available = true;
+            
+            result.close();
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return available;
+    }
+    
+    public boolean insertBadge(String badgeId, String desc){
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO badge (id,description) VALUES (?,?);");
+            pst.setString(1, badgeId);
+            pst.setString(2, desc);
+            int changes = pst.executeUpdate();
+            
+            if(changes == 1)
+                success = true;
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
+    public boolean insertEmployee(String badgeId, String fname, String mname, String lname, int empType, int depType, int shiftId, String active){
+        boolean success = false;
+        
+        try{
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO employee (badgeid,firstname, middlename,lastname,employeetypeid, departmentid,shiftid,active) VALUES (?,?,?,?,?,?,?,?);");
+            pst.setString(1, badgeId);
+            pst.setString(2, fname);
+            pst.setString(3, mname);
+            pst.setString(4, lname);
+            pst.setInt(5, empType);
+            pst.setInt(6, depType);
+            pst.setInt(7, shiftId);
+            pst.setString(8, active);
+            int changes = pst.executeUpdate();
+            
+            if(changes == 1)
+                success = true;
+            
+            pst.close();
+        }
+        catch(Exception e){System.err.println(e.toString());}
+        
+        return success;
+    }
+    
     public Punch getPunch(int id){
         Punch punch = null;
         

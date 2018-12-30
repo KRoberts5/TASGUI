@@ -17,6 +17,7 @@ public class DefaultController extends AbstractController {
     
     //Badge and Employee Constants
     public static final String ABSENTEEISM = "Absenteeism";
+    public static final String ACTIVE = "active";
     public static final String BADGE = "Badge";
     public static final String BADGE_ID = "badgeid";
     public static final String EMPLOYEE = "Employee";
@@ -109,6 +110,13 @@ public class DefaultController extends AbstractController {
     public static final String INSERT_PUNCH_SUCCESS = "InsertPunchSuccess";
     public static final String INSERT_PUNCH_FAILED = "InsertPunchFailed";
     
+    //Constants for Communicating with ViewInsertEmployee
+    public static final String BADGE_ID_TAKEN = "BadgeIdTaken";
+    public static final String INSERT_BADGE_FAILED = "InsertBadgeFailed";
+    public static final String INSERT_BADGE_SUCCESS = "InsertBadgeSuccess";
+    public static final String INSERT_EMPLOYEE_FAILED = "InsertEmployeeFailed";
+    public static final String INSERT_EMPLOYEE_SUCCESS = "InsertEmployeeSuccess";
+    
     //Constants for Calling Model Methods
     public static final String EMPLOYEE_ENTRY = "EmployeeEntry";
     
@@ -153,5 +161,8 @@ public class DefaultController extends AbstractController {
     
     public void insertPunch(HashMap<String,Object> values){
         insertDatabaseProperty(PUNCH,values);
+    }
+    public void insertEmployee(HashMap<String,String> values){
+        insertDatabaseProperty(EMPLOYEE,values);
     }
 }

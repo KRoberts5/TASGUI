@@ -24,7 +24,6 @@ public class ViewUpdateEmployeeInput extends JPanel implements AbstractView{
     private String originalBadgeId;
     private DefaultController controller;
     
-    private JPanel selectionPanel;
     private JPanel inputPanel;
     private JCheckBox selectAll;
     private ArrayList<JCheckBox> selectionBoxes;

@@ -84,7 +84,7 @@ public class ViewAdminChoice extends JPanel implements AbstractView {
         ButtonGroup insertButtons = new ButtonGroup();
         
         JRadioButton insertEmployee = new JRadioButton("Employee");
-        insertEmployee.setActionCommand(""); // Change This
+        insertEmployee.setActionCommand(DefaultController.INSERT_EMPLOYEE); // Change This
         insertSelections.add(insertEmployee);
         insertButtons.add(insertEmployee);
         insertTab.add(insertEmployee);

@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class OTSSelector extends JPanel{
+public class DateTimeSelector extends JPanel{
     
     public static final int HOUR_MAX = 24;
     public static final int HOUR_MIN = 1;
@@ -32,7 +32,7 @@ public class OTSSelector extends JPanel{
     
     GregorianCalendar ots;
     
-    public OTSSelector(){
+    public DateTimeSelector(){
         ots = new GregorianCalendar();
         initComponents();
     }

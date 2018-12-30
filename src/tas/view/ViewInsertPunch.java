@@ -23,7 +23,7 @@ public class ViewInsertPunch extends JPanel implements AbstractView {
 
     DefaultController controller;
     
-    private OTSSelector otsSelector;
+    private DateTimeSelector otsSelector;
     private BadgeIdSelector badgeIdSelector;
     private IdSelector punchTypeSelector;
     
@@ -74,7 +74,7 @@ public class ViewInsertPunch extends JPanel implements AbstractView {
         
         gbc.gridy = ++y;
         
-        otsSelector = new OTSSelector();
+        otsSelector = new DateTimeSelector();
         this.add(otsSelector,gbc);
         
         gbc.gridy = ++y;

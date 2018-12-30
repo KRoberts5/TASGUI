@@ -255,6 +255,40 @@ public class DefaultModel extends AbstractModel {
             
     }
     
+    public void insertEmployee(HashMap<String,String> values){
+        String badgeId = values.get(DefaultController.BADGE_ID);
+        String fname = values.get(DefaultController.FIRSTNAME);
+        String mname = values.get(DefaultController.MIDDLENAME);
+        String lname = values.get(DefaultController.LASTNAME);
+        int empTypeId = Integer.parseInt(values.get(DefaultController.EMPLOYEE_TYPE_ID));
+        int depId = Integer.parseInt(values.get(DefaultController.DEPARTMENT_ID));
+        int shiftId = Integer.parseInt(values.get(DefaultController.SHIFT_ID));
+        String active = values.get(DefaultController.ACTIVE);
+        
+        String badgeDesc = lname + ", " + fname + " " + mname;
+        
+        if(db.checkBadgeIdAvailability(badgeId)){
+            
+            boolean success = true;
+            
+            if(!db.insertBadge(badgeId, badgeDesc)){
+                success = false;
+                firePropertyChange(DefaultController.INSERT_BADGE_FAILED,null,null);
+            }
+            
+            if(!db.insertEmployee(badgeId, fname, mname, lname, empTypeId, depId, shiftId, active)){
+                success = false;
+                firePropertyChange(DefaultController.INSERT_EMPLOYEE_FAILED,null,null);
+            }
+            
+            if(success)
+                firePropertyChange(DefaultController.INSERT_EMPLOYEE_SUCCESS,null,null);
+        }
+        else{
+            firePropertyChange(DefaultController.BADGE_ID_TAKEN,null,null);
+        }
+    }
+    
     public void setReturnHome(String homeName){
         firePropertyChange(DefaultController.RESET_GUI,null,null);
     }
